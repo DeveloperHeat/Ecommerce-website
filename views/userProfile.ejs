@@ -1,0 +1,127 @@
+<!-- views/userProfile.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Include your CSS stylesheets or link to a CDN here -->
+    <style>
+      h1 {
+        text-align: center;
+        margin-top: 40px;
+        color: #343a40;
+      }
+
+      .profile-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      .profile-header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .profile-header img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .upload-form {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .upload-form input {
+        display: none;
+      }
+
+      .upload-form label {
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+      }
+
+      .profile-details p {
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <% console.log("User Object:", user, "Title:", title); %>
+    <nav>
+      <input type="checkbox" id="check" />
+      <label for="check" class="checkbtn">
+        <i class="bx bx-menu" style="color: white"></i>
+      </label>
+      <label class="logo">SwiftDrop</label>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/productLists">Products</a></li>
+        <li><a href="#">Cart</a></li>
+        <!-- Display "Logout" if the user is logged in -->
+        <% if (user) { %>
+        <li><a href="/user/<%= user.uid %>" class="active">Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+        <!-- Display "Login" if the user is not logged in -->
+        <li><a href="/login">Login</a></li>
+        <% } %>
+      </ul>
+    </nav>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="profile-container">
+      <div class="profile-header">
+        <img
+          src="<%= user.profileImage || '/images/signup.png' %>?v=<%= Date.now() %>"
+          alt="User Profile Image"
+          id="profileImage"
+        />
+        <form
+          id="profileImageForm"
+          action="<%= user ? `/user/${user.uid}/upload-profile` : '#' %>"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <div class="upload-form">
+            <input type="button" />
+            <label for="imageInput">SwiftDrop Profile Page</label>
+          </div>
+          <!-- Add a hidden submit button -->
+          <button type="submit" style="display: none"></button>
+        </form>
+        <h1>User Profile</h1>
+        <h2><%= user.fullName %></h2>
+      </div>
+      <div class="profile-details">
+        <p><strong>Username:</strong> <%= user.username %></p>
+        <p><strong>Email:</strong> <%= user.email %></p>
+        <!-- Add more details as needed -->
+      </div>
+    </div>
+
+    <script></script>
+  </body>
+</html>

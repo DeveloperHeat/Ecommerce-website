@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LD Shipping</title>
+    <link rel="stylesheet" href="stylesheets/index.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+  </head>
+  <body onload="setup()">
+    <nav>
+      <input type="checkbox" id="check" />
+      <label for="check" class="checkbtn">
+        <i class="bx bx-menu" style="color: white"></i>
+      </label>
+      <label class="logo">SwiftDrop</label>
+      <ul>
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/productLists">Products</a></li>
+        <li><a href="#">Cart</a></li>
+        <!-- Display "Logout" if the user is logged in -->
+        <% if (user) { %>
+        <li><a href="/user/<%= user.uid %>">Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+        <!-- Display "Login" if the user is not logged in -->
+        <li><a href="/login">Login</a></li>
+        <% } %>
+      </ul>
+    </nav>
+    <section class="home">
+      <span class="home-content">
+        <h3 id="oneh3">Looking to sell or buy?</h3>
+        <h1>Use Dropshipify!</h1>
+        <h3 id="twoh3">It is extremely <span class="us">efficient</span></h3>
+        <p>Start now by creating an account!</p>
+        <a href="/signup" class="btn">Create an account</a>
+        <br />
+        <br />
+        <br />
+      </span>
+      <span class="home-img">
+        <img src="images/box.png" />
+      </span>
+    </section>
+    <section class="about">
+      <span class="about-img">
+        <img src="images/box.png" />
+      </span>
+      <span class="about-content">
+        <h2 class="heading">About <span class="us">Us</span></h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+          commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus
+          et magnis dis parturient montes, nascetur ridiculus mus. Donec quam
+          felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
+          consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
+          nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a,
+          venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+          Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean
+          vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat
+          vitae, eleifend ac, enim.
+        </p>
+      </span>
+    </section>
+    <section class="function">
+      <h2 class="heading">
+        Dropshipify's <span class="us">Functionalities</span>
+      </h2>
+      <span class="function-container">
+        <span class="function-box">
+          <i class="bx bx-money-withdraw"></i>
+          <h3>Sell</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+            commodo
+          </p>
+          <a href="#" class="btn">Start now</a>
+        </span>
+        <span class="function-box">
+          <i class="bx bxs-pointer"></i>
+          <h3>Browse</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+            commodo
+          </p>
+          <a href="/productLists" class="btn">Browse Products</a>
+        </span>
+        <span class="function-box">
+          <i class="bx bxs-credit-card-front"></i>
+          <h3>Purchase</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+            commodo
+          </p>
+          <a href="#" class="btn">Go To Cart</a>
+        </span>
+      </span>
+    </section>
+    <section class="contact" id="contact">
+      <h2 class="heading">
+        Have Questions? <span class="us">Contact Us</span>
+      </h2>
+      <form
+        action="https://formsubmit.co/your@email.com"
+        method="POST"
+        id="contactForm"
+      >
+        <span class="input-box">
+          <input type="text" placeholder="Full Name" id="inOne" />
+          <br />
+          <br />
+          <input type="text" placeholder="Email Address" id="inTwo" />
+        </span>
+        <br />
+        <br />
+        <textarea
+          name=""
+          id="mes"
+          cols="30"
+          row="10"
+          placeholder="Your Message"
+        ></textarea>
+        <input
+          type="submit"
+          value="Send Message"
+          class="btn"
+          onclick="sendMail()"
+        />
+      </form>
+    </section>
+    <script src="js/contact.js"></script>
+    <script type="module" src="js/script.js"></script>
+    <script type="module" src="js/logout.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.emailjs.com/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      /*(function () {
+        emailjs.init("FUWcL5oXXRBz3oo8Y");
+      })();*/
+    </script>
+  </body>
+</html>

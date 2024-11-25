@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products Page</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+  </head>
+  <body>
+    <nav>
+      <input type="checkbox" id="check" />
+      <label for="check" class="checkbtn">
+        <i class="bx bx-menu" style="color: white"></i>
+      </label>
+      <label class="logo">SwiftDrop</label>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/productLists" class="active">Products</a></li>
+        <li><a href="/cart">Cart</a></li>
+
+        <!-- Check if the user is logged in -->
+        <% if (user) { %>
+        <li><a href="/user/<%= user.uid %>">Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+        <!-- If the user is not logged in, show the login option -->
+        <li><a href="/login">Login</a></li>
+        <% } %>
+      </ul>
+    </nav>
+    <br />
+    <br />
+    <br />
+    <span class="product-container">
+      <span class="heading">
+        <h2 class="p-list">Product Listings</h2>
+        <p class="p-text">
+          Welcome! Take a look at the wide range of products available at
+          SwiftDrop. We have some beautiful products on show, so just have a
+          look at what you fancy!
+        </p>
+        <p>
+          <br />
+          <br />
+          <span class="form-container">
+            <form action="" class="search-bar">
+              <input
+                type="input"
+                placeholder="Search for a product"
+                name="q"
+                onkeyup="filterProducts()"
+              />
+              <button type="submit">
+                <i class="bx bx-search-alt-2" style="color: white"></i>
+              </button>
+            </form>
+          </span>
+        </p>
+        <span class="gallery">
+          <% productList.forEach(product => { %>
+          <span class="product" data-name="<%= product.info.name %>">
+            <img
+              class="p-img"
+              src="<%= product.info.imageUrl %>"
+              alt="<%= product.info.name %>"
+            />
+            <a href="/product/<%= product.id %>"><%= product.info.name %></a>
+            <p class="info"><%= product.info.mini %></p>
+            <h6>Price: $<%= product.info.price %></h6>
+            <button class="buy-now">Buy Now</button>
+          </span>
+          <% }); %>
+        </span>
+        <script src="/scripts/productLists.js"></script>
+      </span>
+    </span>
+  </body>
+</html>

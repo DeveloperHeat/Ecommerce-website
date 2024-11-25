@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script src="/scripts/checkout.js" defer></script>
+
+    <style>
+      body {
+        font-family: "Poppins", "sans-serif";
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      * {
+        padding: 0;
+        margin: 0;
+        text-decoration: none;
+        list-style: none;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg-color: #1f242d;
+        --bg-color-2: #323946;
+        --text-color: white;
+        --main-color: #03bafc;
+        --main-color-2: #34c3eb;
+        --white-light: rgba(225, 225, 225, 0.5);
+      }
+
+      html {
+        background-color: var(--white-light);
+        font-size: 80%;
+        overflow-x: hidden;
+      }
+
+      #p {
+        background-color: var(--bg-color-2);
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 1.5rem 2.8rem;
+        background: var(--main-color);
+        border-radius: 4rem;
+        box-shadow: 0 0 1rem var(--main-color);
+        font-size: 1.5rem;
+        color: var(--bg-color-2);
+        letter-spacing: 0.3em;
+        font-weight: 600;
+        transition: 0.5s ease;
+        margin-top: 10%;
+      }
+
+      .btn:hover {
+        box-shadow: none;
+        color: var(--bg-color-2);
+      }
+
+      .btn:hover {
+        box-shadow: none;
+        cursor: pointer;
+      }
+
+      nav {
+        background-color: var(--bg-color);
+        height: 80px;
+        width: 100%;
+        position: fixed;
+        top: 0; /* Add this line to ensure the navigation bar is at the top */
+        z-index: 1000;
+        color: var(--text-color);
+      }
+
+      label.logo {
+        color: var(--main-color-2);
+        font-size: 26px;
+        line-height: 80px;
+        padding: 0 100px;
+        font-weight: bold;
+      }
+
+      nav .ulnav {
+        float: right;
+        margin-right: 20px;
+      }
+
+      nav .ulnav .linav {
+        display: inline-block;
+        line-height: 80px;
+      }
+
+      nav ul li a {
+        color: var(--text-color);
+        font-size: 17px;
+        padding: 7px 13px;
+        text-transform: uppercase;
+        transition: 0.5s;
+      }
+
+      .active,
+      a:hover {
+        color: var(--main-color);
+      }
+
+      .checkbtn {
+        font-size: 30px;
+        color: var(--text-color);
+        float: right;
+        line-height: 80px;
+        margin-right: 40px;
+        cursor: pointer;
+        display: none;
+      }
+
+      #check {
+        display: none;
+      }
+
+      @media (max-width: 952px) {
+        label.logo {
+          font-size: 30px;
+          padding-left: 50px;
+        }
+
+        nav .ulnav .linav a {
+          font-size: 16px;
+        }
+      }
+
+      @media (max-width: 858px) {
+        .checkbtn {
+          display: block;
+        }
+
+        .ulnav {
+          position: fixed;
+          width: 100%;
+          height: 35vh;
+          background-color: var(--bg-color-2);
+          top: 80px;
+          left: -100%;
+          text-align: center;
+          transition: left 0.5s ease;
+        }
+
+        nav .ulnav .linav {
+          display: block;
+        }
+
+        nav .ulnav .linav a {
+          font-size: 20px;
+        }
+
+        a:hover,
+        a.active {
+          background: none;
+          color: var(--main-color);
+        }
+
+        #check:checked ~ ul {
+          left: 0;
+        }
+      }
+
+      @media (max-width: 780px) {
+        .ulnav {
+          height: 40vh;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .ulnav {
+          height: 45vh;
+        }
+      }
+
+      @media (max-width: 540px) {
+        .ulnav {
+          height: 56vh;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .ulnav {
+          height: 62vh;
+        }
+      }
+
+      @media (max-width: 280px) {
+        .ulnav {
+          width: 87%;
+        }
+      }
+
+      h2 {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .cart-box {
+        width: 80%;
+        margin: 20px auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      .ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .li {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+      }
+
+      img {
+        margin-right: 10px;
+        border-radius: 4px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+
+      p {
+        margin: 0;
+      }
+
+      form {
+        margin-left: auto;
+      }
+
+      button {
+        background-color: var(--main-color);
+        color: #fff;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: var(--main-color-2);
+      }
+
+      p.empty-cart-message {
+        text-align: center;
+        color: var(--main-color);
+      }
+
+      @media (max-width: 768px) {
+        .cart-box {
+          width: 90%;
+        }
+      }
+
+      @media (max-width: 600px) {
+        h2 {
+          font-size: 24px;
+        }
+
+        .li {
+          flex-direction: column;
+          align-items: flex-start;
+          text-align: left;
+        }
+
+        img {
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+
+        button {
+          margin-top: 10px;
+        }
+      }
+    </style>
+    <title>Shopping Cart</title>
+  </head>
+  <body>
+    <nav>
+      <input type="checkbox" id="check" />
+      <label for="check" class="checkbtn">
+        <i class="bx bx-menu" style="color: white"></i>
+      </label>
+      <label class="logo">SwiftDrop</label>
+      <ul class="ulnav">
+        <li class="linav"><a href="/" class="active">Home</a></li>
+        <li class="linav"><a href="/productLists">Products</a></li>
+        <li class="linav"><a href="#">Cart</a></li>
+        <!-- Display "Logout" if the user is logged in -->
+        <% if (user) { %>
+        <li class="linav"><a href="/user/<%= user.uid %>">Profile</a></li>
+        <li class="linav"><a href="/logout">Logout</a></li>
+        <% } else { %>
+        <!-- Display "Login" if the user is not logged in -->
+        <li class="linav"><a href="/login">Login</a></li>
+        <% } %>
+      </ul>
+    </nav>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <h2>Shopping Cart</h2>
+
+    <div class="cart-box">
+      <% if (cartItems.length > 0) { %>
+      <!-- Display cart items -->
+      <ul class="ul">
+        <% cartItems.forEach(item => { %>
+        <li class="li">
+          <img
+            src="<%= item.imageUrl %>"
+            alt="<%= item.productName %>"
+            style="width: 50px; height: auto"
+          />
+          <p><%= item.productName %>, &nbsp;</p>
+          <p>Quantity: <%= item.quantity %>, &nbsp;</p>
+          <p>Price: $<%= item.price %></p>
+          <!-- Add delete button with a form for each item -->
+          <form method="POST" action="/deleteFromCart">
+            <input type="hidden" name="itemId" value="<%= item.id %>" />
+            <button type="submit">Delete</button>
+          </form>
+        </li>
+        <% }); %>
+      </ul>
+      <% } else { %>
+      <p class="empty-cart-message">Your cart is empty.</p>
+      <% } %>
+      <br />
+      <form id="payment-form" method="POST" action="/charge">
+        <!-- Add necessary input fields like amount, currency, etc. -->
+        <input type="hidden" name="amount" value="100" />
+        <!-- Provide actual amount -->
+        <input type="hidden" name="currency" value="usd" />
+        <!-- Provide actual currency -->
+        <!-- Other necessary input fields -->
+        <div id="card-element"></div>
+        <button type="submit" id="submit-button" onclick="alert('Demo')">
+          Purchase
+        </button>
+      </form>
+    </div>
+    <script>
+      // checkout.js
+
+      // Load Stripe.js with your publishable key
+      const stripe = Stripe(
+        "pk_test_51OeSrvGkQFAHAkrXQEHKG4wJz6uZnpfls2CKWpWFJMjS1xAp0dMaQ0yiCcFxYCmuIwS6zBfsDmHkkRdmmuqDQRSS00EPs4f5dc"
+      );
+
+      // Create an instance of the elements object
+      const elements = stripe.elements();
+
+      const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        // Get the amount, currency, and other necessary data from the form
+        const form = document.getElementById("payment-form");
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+          // Create a CardElement instance
+          const cardElement = elements.create("card");
+
+          // Add the CardElement to the form
+          cardElement.mount("#card-element");
+
+          // Create a payment method using the card details
+          const { paymentMethod, error } = await stripe.createPaymentMethod({
+            type: "card",
+            card: cardElement,
+          });
+
+          if (error) {
+            console.error("Error:", error);
+            // Handle card validation errors
+          } else {
+            // Send the payment method to your server to process the payment
+            const response = await fetch("/charge", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                amount: data.amount,
+                currency: data.currency,
+                payment_method_id: paymentMethod.id,
+                description: "Payment for products", // You can customize the description
+              }),
+            });
+
+            // Handle the response from the server
+            if (response.ok) {
+              // Payment successful
+              // Redirect or display success message
+            } else {
+              // Payment failed
+              // Handle error
+            }
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          // Handle error
+        }
+      };
+
+      // Attach event listener to the form submit button
+      document
+        .getElementById("submit-button")
+        .addEventListener("click", handleSubmit);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!-- login.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="stylesheets/signup.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+    <title><%= title %></title>
+    <!-- Include your CSS stylesheets or link to a CDN here -->
+  </head>
+  <body>
+    <div class="container">
+      <span class="signup-container">
+        <span class="signup-header">
+          <h1>Login</h1>
+          <img src="images/signup.png" alt="register" />
+        </span>
+        <form method="POST" action="/login">
+          <br />
+          <span class="form-control">
+            <input
+              type="text"
+              id="email"
+              name="email"
+              placeholder="E-mail"
+              required
+            />
+            <i class="bx bx-envelope"></i>
+            <br />
+          </span>
+          <span class="form-control">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+            <i class="bx bx-lock-alt"></i>
+          </span>
+          <input type="submit" value="Login" class="btn" />
+          <br />
+          <br />
+          <label class="text">
+            Don't have an account? <a href="/signup">Sign up</a> |
+            <a href="/forgot-password">Forgot Password</a>
+          </label>
+        </form>
+      </span>
+    </div>
+  </body>
+</html>

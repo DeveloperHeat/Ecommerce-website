@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body id="p">
+    <br />
+    <form id="addProductForm" method="POST" action="/products">
+      <h1>Add Product</h1>
+      <br />
+      <input
+        required
+        name="name"
+        placeholder="Username"
+        class="productInput"
+        maxlength="30"
+      />
+      <br />
+      <br />
+
+      <textarea
+        required
+        name="mini"
+        placeholder="Mini Description"
+        class="description"
+        maxlength="30"
+      ></textarea>
+      <textarea
+        required
+        name="description"
+        placeholder="Full Description"
+        class="description"
+      ></textarea>
+      <br />
+      <br />
+      <input
+        required
+        name="imageUrl"
+        placeholder="Image Url"
+        type="url"
+        class="productInput"
+      />
+      <br />
+      <br />
+      <input
+        required
+        name="price"
+        placeholder="Price"
+        type="number"
+        class="productInput"
+      />
+      <br />
+      <br />
+      <br />
+      <button class="btn">Add Product</button>
+    </form>
+  </body>
+</html>

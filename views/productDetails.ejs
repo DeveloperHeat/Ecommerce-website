@@ -1,0 +1,194 @@
+<!-- productDetails.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+    <style>
+      .box {
+        display: flex;
+        flex-direction: column;
+        max-width: 1200px;
+        margin: auto;
+        height: auto;
+        margin-top: 5%;
+        background: white;
+        box-shadow: 5px 5px 10px 3px rgba(0, 0, 0, 0.2);
+      }
+
+      .left,
+      .right {
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .main-image {
+        width: 100%;
+        height: auto;
+      }
+
+      .right {
+        background-color: #f8f8f8;
+      }
+
+      h3 {
+        color: var(--bg-color);
+        margin: 0 0 20px 0;
+        font-size: 25px;
+      }
+
+      h4,
+      p {
+        color: black;
+      }
+
+      p {
+        margin: 10px 0 20px 0;
+        line-height: 1.5;
+      }
+
+      .add {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .add button {
+        width: 40px;
+        height: 40px;
+        background: #000;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 18px;
+        margin: 0 10px;
+      }
+
+      .add button:hover {
+        background-color: var(--main-color-2);
+      }
+
+      .add label {
+        font-size: 20px;
+        margin: 0 10px;
+      }
+
+      .add-cart {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        outline: none;
+        background: var(--main-color);
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .add-cart:hover {
+        background-color: var(--main-color-2);
+      }
+
+      @media only screen and (min-width: 700px) {
+        .box {
+          flex-direction: row;
+        }
+
+        .left {
+          width: 50%;
+        }
+
+        .right {
+          width: 50%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <input type="checkbox" id="check" />
+      <label for="check" class="checkbtn">
+        <i class="bx bx-menu" style="color: white"></i>
+      </label>
+      <label class="logo">SwiftDrop</label>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/productLists" class="active">Products</a></li>
+        <li><a href="/cart">Cart</a></li>
+
+        <!-- Check if the user is logged in -->
+        <% if (user) { %>
+        <li><a href="/user/<%= user.uid %>">Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+        <!-- If the user is not logged in, show the login option -->
+        <li><a href="/login">Login</a></li>
+        <% } %>
+      </ul>
+    </nav>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <h2 style="margin-left: 44%">Product Details</h2>
+    <div class="box">
+      <div class="left">
+        <div class="main-image">
+          <img
+            class="product-img"
+            src="<%= product.info.imageUrl %>"
+            alt="<%= product.info.name %>"
+          />
+        </div>
+      </div>
+      <div class="right">
+        <h3><%= product.info.name %></h3>
+        <h4>Price: $<%= product.info.price %></h4>
+        <p class="info"><%= product.info.description %></p>
+        <h5>Number:</h5>
+        <br />
+        <div class="add">
+          <button class="minus">-</button>
+          <label>1</label>
+          <button class="plus">+</button>
+        </div>
+
+        <form id="add-to-cart-form" method="POST" action="/addToCart">
+          <input type="hidden" name="productId" value="<%= product.id %>" />
+          <input
+            type="hidden"
+            name="productName"
+            value="<%= product.info.name %>"
+          />
+
+          <label for="quantity">Quantity:</label>
+          <input
+            type="number"
+            name="quantity"
+            id="quantity"
+            value="1"
+            min="1"
+            required
+          />
+          <button class="add-cart" type="submit">Add to Cart</button>
+        </form>
+      </div>
+    </div>
+    <br />
+    <br />
+  </body>
+</html>

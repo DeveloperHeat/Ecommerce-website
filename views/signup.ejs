@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LDS Signup</title>
+    <link rel="stylesheet" href="stylesheets/signup.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <span class="signup-container">
+        <span class="signup-header">
+          <h1>Signup</h1>
+          <img src="images/signup.png" alt="register" />
+        </span>
+        <form id="signupForm" method="post" action="/signup">
+          <br />
+          <span class="form-control">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Username"
+            />
+            <i class="bx bx-user"></i>
+            <br />
+          </span>
+          <span class="form-control">
+            <input type="text" id="email" name="email" placeholder="E-mail" />
+            <i class="bx bx-envelope"></i>
+          </span>
+          <span class="form-control">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+            />
+            <i class="bx bx-lock-alt"></i>
+          </span>
+          <br />
+          <label class="terms"
+            >By signing up you agree with our <a href="#">Ts & Cs</a></label
+          >
+          <br />
+          <br />
+          <input
+            type="submit"
+            id="saveData"
+            name="send"
+            value="Signup"
+            class="btn"
+          />
+          <br />
+          <br />
+          <label class="text"
+            >Already have an account?&nbsp;<a href="/login">Sign in</a></label
+          >
+        </form>
+      </span>
+    </div>
+  </body>
+</html>
