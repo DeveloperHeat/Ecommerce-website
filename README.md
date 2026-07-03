@@ -27,7 +27,7 @@ This project is fully containerized with Docker, ensuring a consistent environme
 
 ## Tech Stack
 - Backend: Node.js, Express
-- Frontend: EJS (Embedded JavaScript templates)
+- Frontend: EJS, CSS
 - Containerization: Docker
 - Database/Auth: Firebase
 
